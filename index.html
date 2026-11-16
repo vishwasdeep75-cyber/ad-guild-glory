@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0d12">
+<title>AD Guild Glory</title>
+<style>
+:root{--bg:#090b10;--panel:#121620;--panel2:#181e2b;--line:#283144;--text:#f4f6fb;--muted:#9ba6b8;--red:#ff394f;--gold:#ffc857;--green:#54d69a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0%,#24131b 0,#090b10 38%);color:var(--text);font:15px/1.5 system-ui,Segoe UI,Arial,sans-serif}
+.wrap{max-width:1120px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#ff394f,#9e1630);display:grid;place-items:center;font-weight:900;font-size:18px;box-shadow:0 8px 25px #ff394f33}.brand h1{font-size:19px;margin:0}.brand small{color:var(--muted)}button,.btn{border:0;border-radius:10px;padding:10px 14px;background:var(--red);color:white;font-weight:700;cursor:pointer}button.secondary{background:#242c3b;border:1px solid var(--line)}button.danger{background:#8e2432}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.tab{background:#171d29;border:1px solid var(--line);color:#c9d1df}.tab.active{background:#3a1822;border-color:#a92a40;color:#fff}.hero{padding:24px;border:1px solid #512331;border-radius:18px;background:linear-gradient(115deg,#25131b,#151923 65%);margin-bottom:18px}.eyebrow{color:#ff8a98;text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:800}.hero h2{font-size:clamp(26px,5vw,40px);line-height:1.1;margin:8px 0}.hero p{color:#b7c0ce;margin:0;max-width:650px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:16px 0}.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:15px;padding:17px;min-width:0}.metric label{color:var(--muted);font-size:12px}.metric strong{display:block;font-size:27px;margin-top:5px}.metric .hint{color:var(--muted);font-size:11px}.layout{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.section-title h3{margin:0;font-size:16px}.muted{color:var(--muted)}.bar{height:9px;background:#252d3b;border-radius:20px;overflow:hidden;margin:12px 0}.bar span{display:block;height:100%;background:linear-gradient(90deg,#ff394f,#ffc857);width:0}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}input,select,textarea{width:100%;background:#0c1018;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:11px;font:inherit}input:focus,select:focus,textarea:focus{outline:1px solid var(--red)}label.field{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.fieldwrap{margin-bottom:10px}.wide{grid-column:1/-1}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--muted);font-weight:600}.pill{font-size:11px;padding:4px 8px;border-radius:30px;background:#17372d;color:var(--green)}.empty{padding:22px;text-align:center;color:var(--muted)}.hidden{display:none!important}.notice{border:1px solid #594723;background:#292213;color:#f5d991;padding:11px 13px;border-radius:10px;font-size:12px;margin:14px 0}.login{max-width:420px;margin:40px auto}.login h2{margin-top:0}.actions{display:flex;gap:8px;flex-wrap:wrap}.small{font-size:12px}.footer{text-align:center;color:#778195;font-size:11px;padding:25px 0}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#202938;border:1px solid var(--line);padding:10px 15px;border-radius:10px;display:none;z-index:5}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.wrap{padding:15px}.hero{padding:19px}}@media(max-width:430px){.formgrid{grid-template-columns:1fr}.wide{grid-column:auto}.top{align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+ <div class="brand"><div class="logo">AD</div><div><h1>AD Guild Glory</h1><small>Guild management dashboard</small></div></div>
+ <button class="secondary" id="adminBtn">Admin login</button>
+</header>
+<nav class="tabs">
+ <button class="tab active" data-tab="dashboard">Dashboard</button>
+ <button class="tab" data-tab="members">Members</button>
+ <button class="tab" data-tab="activity">Activity log</button>
+ <button class="tab hidden" id="adminTab" data-tab="admin">Admin panel</button>
+</nav>
+<section id="dashboard" class="page">
+ <div class="hero"><div class="eyebrow">Guild command center</div><h2>Track your guild.<br><span style="color:#ff6879">Grow together.</span></h2><p>Keep member records, manually track your guild's Glory progress, and manage activity in one clean dashboard.</p></div>
+ <div class="grid">
+  <div class="card metric"><label>Guild Glory</label><strong id="gloryMetric">0</strong><span class="hint">Manually recorded</span></div>
+  <div class="card metric"><label>Members</label><strong id="memberMetric">0</strong><span class="hint">Saved in this browser</span></div>
+  <div class="card metric"><label>Active members</label><strong id="activeMetric">0</strong><span class="hint">Marked active</span></div>
+  <div class="card metric"><label>Activities</label><strong id="activityMetric">0</strong><span class="hint">Logged entries</span></div>
+ </div>
+ <div class="layout">
+  <div class="card"><div class="section-title"><h3>Guild progress</h3><span class="muted small" id="progressText">0 / 10000</span></div><div class="bar"><span id="progressBar"></span></div><p class="muted small">Progress target is an editable planning target, not a live Garena rank or official score.</p></div>
+  <div class="card"><div class="section-title"><h3>Guild profile</h3><span class="pill">Local demo</span></div><div id="profileText" class="muted small">Add your guild details in the Admin Panel.</div></div>
+ </div>
+ <div class="notice">Demo limitation: this website does not connect to Free Fire/Garena, generate Glory, add accounts, or change in-game data. Glory values are entered manually.</div>
+</section>
+<section id="members" class="page hidden">
+ <div class="card"><div class="section-title"><h3>Guild members</h3><span class="muted small" id="memberCount">0 members</span></div>
+ <div class="tablewrap"><table><thead><tr><th>Player name</th><th>UID</th><th>Role</th><th>Status</th><th>Action</th></tr></thead><tbody id="memberRows"></tbody></table></div><div id="memberEmpty" class="empty">No members added yet.</div></div>
+</section>
+<section id="activity" class="page hidden">
+ <div class="card"><div class="section-title"><h3>Activity log</h3><span class="muted small">Latest first</span></div><div id="activityList"></div></div>
+</section>
+<section id="admin" class="page hidden">
+ <div class="layout">
+  <div class="card"><h3>Guild settings</h3>
+   <div class="fieldwrap"><label class="field">Guild name</label><input id="guildName" placeholder="Your guild name"></div>
+   <div class="formgrid"><div class="fieldwrap"><label class="field">Guild ID</label><input id="guildId" placeholder="Guild ID"></div><div class="fieldwrap"><label class="field">Glory points (manual)</label><input id="gloryInput" type="number" min="0" placeholder="0"></div><div class="fieldwrap wide"><label class="field">Progress target</label><input id="targetInput" type="number" min="1" placeholder="10000"></div></div>
+   <button id="saveSettings">Save settings</button>
+  </div>
+  <div class="card"><h3>Add member</h3>
+   <div class="fieldwrap"><label class="field">Player name</label><input id="playerName" placeholder="Player name"></div>
+   <div class="fieldwrap"><label class="field">Player UID (optional)</label><input id="playerUid" placeholder="UID"></div>
+   <div class="formgrid"><div class="fieldwrap"><label class="field">Role</label><select id="playerRole"><option>Member</option><option>Leader</option><option>Officer</option></select></div><div class="fieldwrap"><label class="field">Status</label><select id="playerStatus"><option>Active</option><option>Inactive</option></select></div></div>
+   <button id="addMember">Add member</button>
+  </div>
+ </div>
+ <div class="card" style="margin-top:14px"><div class="section-title"><h3>Admin tools</h3></div><p class="muted small">Admin access is a simple local demo lock, not secure account authentication. Do not store sensitive information here.</p><div class="actions"><button class="secondary" id="exportData">Export backup</button><button class="secondary" id="importBtn">Import backup</button><input class="hidden" type="file" id="importFile" accept="application/json"><button class="danger" id="resetData">Reset all data</button><button class="secondary" id="logoutBtn">Log out</button></div></div>
+</section>
+<section id="login" class="page hidden">
+ <div class="card login"><h2>Admin login</h2><p class="muted small">Default demo password: <b>admin123</b>. Change it in the source before publishing. This is not production-grade security.</p><div class="fieldwrap"><label class="field">Password</label><input id="password" type="password" placeholder="Enter admin password"></div><button id="loginBtn">Unlock admin panel</button></div>
+</section>
+<footer class="footer">AD Guild Glory • Free static website • Data stays in this browser unless you export it</footer>
+</div><div class="toast" id="toast"></div>
+<script>
+const KEY='adGuildGloryDataV1';
+const defaults={guildName:'AD Guild Glory',guildId:'',glory:0,target:10000,members:[],activities:[]};
+let data=load(),isAdmin=false;
+function load(){try{return {...defaults,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){return {...defaults}}}
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function toast(s){const t=document.getElementById('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',2200)}
+function log(s){data.activities.unshift({text:s,date:new Date().toLocaleString()});data.activities=data.activities.slice(0,100)}
+function render(){
+ document.getElementById('gloryMetric').textContent=Number(data.glory||0).toLocaleString();
+ document.getElementById('memberMetric').textContent=data.members.length;
+ document.getElementById('activeMetric').textContent=data.members.filter(m=>m.status==='Active').length;
+ document.getElementById('activityMetric').textContent=data.activities.length;
+ document.getElementById('memberCount').textContent=data.members.length+' members';
+ const target=Math.max(1,Number(data.target)||10000),pct=Math.min(100,Math.round((Number(data.glory||0)/target)*100));
+ document.getElementById('progressText').textContent=Number(data.glory||0).toLocaleString()+' / '+target.toLocaleString();
+ document.getElementById('progressBar').style.width=pct+'%';
+ document.getElementById('profileText').innerHTML='<b>'+esc(data.guildName||'Unnamed guild')+'</b><br>Guild ID: '+esc(data.guildId||'Not set')+'<br>Planning progress: '+pct+'%';
+ const rows=document.getElementById('memberRows');rows.innerHTML=data.members.map((m,i)=>`<tr><td>${esc(m.name)}</td><td>${esc(m.uid||'—')}</td><td>${esc(m.role)}</td><td><span class="pill" style="${m.status==='Inactive'?'background:#34252a;color:#ff9aaa':''}">${esc(m.status)}</span></td><td>${isAdmin?`<button class="danger" data-remove="${i}" style="padding:6px 9px">Remove</button>`:'—'}</td></tr>`).join('');
+ document.getElementById('memberEmpty').classList.toggle('hidden',data.members.length>0);
+ document.getElementById('activityList').innerHTML=data.activities.length?data.activities.map(a=>`<div style="padding:10px 0;border-bottom:1px solid var(--line)"><div>${esc(a.text)}</div><div class="muted small">${esc(a.date)}</div></div>`).join(''):'<div class="empty">No activity recorded.</div>';
+ if(isAdmin){document.getElementById('guildName').value=data.guildName;document.getElementById('guildId').value=data.guildId;document.getElementById('gloryInput').value=data.glory;document.getElementById('targetInput').value=data.target}
+}
+function showTab(id){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===id))}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+document.getElementById('adminBtn').onclick=()=>{if(isAdmin){showTab('admin')}else{showTab('login')}};
+document.getElementById('loginBtn').onclick=()=>{if(document.getElementById('password').value==='admin123'){isAdmin=true;document.getElementById('adminTab').classList.remove('hidden');document.getElementById('adminBtn').textContent='Admin panel';showTab('admin');toast('Admin unlocked')}else toast('Incorrect password')};
+document.getElementById('logoutBtn').onclick=()=>{isAdmin=false;document.getElementById('adminTab').classList.add('hidden');document.getElementById('adminBtn').textContent='Admin login';showTab('dashboard')};
+document.getElementById('saveSettings').onclick=()=>{data.guildName=document.getElementById('guildName').value.trim()||'AD Guild Glory';data.guildId=document.getElementById('guildId').value.trim();data.glory=Math.max(0,Number(document.getElementById('gloryInput').value)||0);data.target=Math.max(1,Number(document.getElementById('targetInput').value)||10000);log('Guild settings updated');save();toast('Settings saved')};
+document.getElementById('addMember').onclick=()=>{const name=document.getElementById('playerName').value.trim();if(!name)return toast('Enter a player name');data.members.push({name,uid:document.getElementById('playerUid').value.trim(),role:document.getElementById('playerRole').value,status:document.getElementById('playerStatus').value});log('Added member: '+name);document.getElementById('playerName').value='';document.getElementById('playerUid').value='';save();toast('Member added')};
+document.getElementById('memberRows').onclick=e=>{const i=e.target.dataset.remove;if(i!==undefined&&isAdmin){const m=data.members.splice(Number(i),1)[0];log('Removed member: '+m.name);save();toast('Member removed')}};
+document.getElementById('exportData').onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ad-guild-glory-backup.json';a.click();URL.revokeObjectURL(a.href)};
+document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
+document.getElementById('importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const x=JSON.parse(await f.text());data={...defaults,...x};save();toast('Backup imported')}catch(err){toast('Invalid backup file')}};
+document.getElementById('resetData').onclick=()=>{if(confirm('Delete all guild data stored in this browser?')){data={...defaults};save();toast('Data reset')}};
+render();
+</script>
+</body></html>
